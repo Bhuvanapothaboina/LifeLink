@@ -11,10 +11,12 @@ const Requests = () => {
     if (!token) return navigate("/login");
     fetchRequests();
   }, []);
+   const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/donor/requests", {
+      const res = await axios.get(`${API}/api/donor/requests`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRequests(res.data);

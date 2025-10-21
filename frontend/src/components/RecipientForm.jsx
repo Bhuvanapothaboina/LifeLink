@@ -16,6 +16,8 @@ const RecipientForm = () => {
 
   const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
+   const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,7 +28,7 @@ const RecipientForm = () => {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:5000/api/recipient/request", formData, {
+      await axios.post(`${API}/api/recipient/request`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

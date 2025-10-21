@@ -6,6 +6,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
+  const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const [requests, setRequests] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
@@ -14,6 +15,8 @@ const Dashboard = () => {
   const [cityFilter, setCityFilter] = useState("");
   const [bloodFilter, setBloodFilter] = useState("");
   const [availability, setAvailability] = useState("yes");
+  
+
   const [message, setMessage] = useState("");
   const [sentRequests, setSentRequests]=useState([]);
 
@@ -44,7 +47,7 @@ const Dashboard = () => {
   // Donor: fetch all registered recipients
 const fetchAllRecipients = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/donor/all-recipients", {
+    const res = await axios.get(`${API}/api/donor/all-recipients`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setRequests(res.data);
@@ -58,7 +61,7 @@ const fetchAllRecipients = async () => {
 // Recipient: fetch list of donors this recipient has already requested (so we can show "Request Sent")
 const fetchSentRequests = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/recipient/sent", {
+    const res = await axios.get(`${API}/api/recipient/sent`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     // res.data is array of donor infos; map to ids
@@ -74,7 +77,7 @@ const fetchSentRequests = async () => {
 // Recipient: fetch all available donors
   const fetchAvailableDonors = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/donor/available", {
+      const res = await axios.get(`${API}/api/donor/available`, {
         headers: { Authorization: `Bearer ${token}` },
       });
         const data = res.data.map((d) => ({
@@ -90,17 +93,33 @@ const fetchSentRequests = async () => {
     }
   };
 
-
+useEffect(() => {
+  const fetchDonor = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(`${API}/api/donor/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setDonors(res.data);
+      setAvailability(res.data.availability || "yes");
+    } catch (err) {
+      console.error("Error fetching donor data:", err);
+    }
+  };
+  fetchDonor();
+}, []);
   // Donor: toggle availability
   const toggleAvailability = async () => {
     try {
       const newStatus = availability === "yes" ? "no" : "yes";
+      const token=localStorage.getItem("token");
       await axios.put(
-        "http://localhost:5000/api/donor/availability",
+        `${API}/api/donor/availability`,
         { availability: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setAvailability(newStatus);
+      alert(`Availability updated to: ${newStatus==="yes" ? "Available" : "Not Available"}`);
     } catch (err) {
       console.error(err);
     }
@@ -111,7 +130,7 @@ const fetchSentRequests = async () => {
 
   const fetchRecipientRequests = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/donor/requests", {
+    const res = await axios.get(`${API}/api/donor/requests`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setRequests(res.data);
@@ -189,7 +208,7 @@ const sendRequest = async (donorId, alreadyRequested) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/recipient/cancel-request",
+        `${API}/api/recipient/cancel-request`,
         { donorId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -210,7 +229,7 @@ const sendRequest = async (donorId, alreadyRequested) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/recipient/send-request",
+        `${API}/api/recipient/send-request`,
         { donorId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -261,8 +280,9 @@ const handleCall = (phoneNumber) => {
         <>
           <div style={styles.actionBar}>
             <button style={styles.availabilityButton} onClick={toggleAvailability}>
-              Set Availability: {availability === "yes" ? "✅ Available" : "❌ Not Available"}
+              {availability === "yes" ? "Set Not Available" : "Set Available"}
             </button>
+            <p>Current Status : {availability === "yes" ?  "✅ Available" : "❌ Not Available"}</p>
 
             <div style={styles.filters}>
               <input

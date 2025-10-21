@@ -11,17 +11,20 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
-
+ 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+   const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", formData);
+      const res = await axios.post(`${API}/api/auth/login`, formData);
       const { token, user } = res.data;
 
       // Store token and user
@@ -31,7 +34,7 @@ const Login = () => {
       setMessage("Login successful! Redirecting...");
 
       // ✅ Step 1: Check if user already has a profile
-      const check = await axios.get("http://localhost:5000/api/profile/check", {
+      const check = await axios.get(`${API}/api/profile/check`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

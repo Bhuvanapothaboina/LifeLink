@@ -21,8 +21,9 @@ const donorSchema = new mongoose.Schema({
     required: true,
   },
   availability: {
-    type: Boolean,
-    default: true,
+    type: String,
+    enum:["yes","no"],
+    default: "yes",
   },
   additionalInfo: {
     type: String,

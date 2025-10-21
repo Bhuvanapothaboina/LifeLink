@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 const DonorForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -15,6 +17,7 @@ const DonorForm = () => {
   const [message, setMessage] = useState("");
 
   const token = localStorage.getItem("token");
+  const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +28,7 @@ const DonorForm = () => {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:5000/api/donor/profile", formData, {
+      await axios.post(`${API}/api/donor/profile`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

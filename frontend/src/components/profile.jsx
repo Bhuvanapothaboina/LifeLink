@@ -15,10 +15,11 @@ const Profile = () => {
     if (!token) navigate("/login");
     fetchProfile();
   }, []);
+  const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/profile/me", {
+      const res = await axios.get(`${API}/api/profile/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(res.data.user);
@@ -37,7 +38,7 @@ const Profile = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/profile/update", formData, {
+      const res = await axios.put(`${API}/api/profile/update`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMessage(res.data.message);
@@ -50,7 +51,7 @@ const Profile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete("http://localhost:5000/api/profile/delete", {
+      await axios.delete(`${API}/api/profile/delete`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       localStorage.removeItem("token");

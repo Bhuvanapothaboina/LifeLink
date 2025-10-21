@@ -13,6 +13,8 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
+   const API=process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +25,7 @@ const Register = () => {
     setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", formData);
+      const res = await axios.post(`${API}/api/auth/register`, formData);
       setMessage("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 1500);
       console.log("Registration success:", res.data);
