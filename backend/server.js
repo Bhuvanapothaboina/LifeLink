@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({origin: "https://life-link-chi.vercel.app",
+app.use(cors({origin:[ "http://localhost:3000","https://life-link-chi.vercel.app"],
   credentials:true,
 }));
 
