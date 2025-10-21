@@ -30,18 +30,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Donor: fetch all recipient requests
-  // const fetchRecipientRequests = async () => {
-  //   try {
-  //     const res = await axios.get("http://localhost:5000/api/recipient/all", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setRequests(res.data);
-  //     setFilteredRequests(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   
   // Donor: fetch all registered recipients
@@ -162,43 +150,6 @@ useEffect(() => {
     }
   };
 
-  // Recipient: send blood request to donor
-  // const sendRequest = async (donorId) => {
-  //   try {
-  //     const res = await axios.post(
-  //       "http://localhost:5000/api/recipient/request",
-  //       { donorId },
-  //       { headers: { Authorization: `Bearer ${token}` } }
-  //     );
-  //     setMessage(res.data.message || "Request sent successfully!");
-  //   } catch (err) {
-  //     console.error(err);
-  //     setMessage("Failed to send request. Please try again.");
-  //   }
-  // };
-
-//   const sendRequest = async (donorId) => {
-//   try {
-//     if(!window.confirm("Send request to this donor?")) return;
-//     const res = await axios.post(
-//       "http://localhost:5000/api/recipient/send-request", // ✅ new endpoint
-//       { donorId },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     alert("Request sent successfully!");
-//     setMessage(res.data.message || "Request sent successfully!");
-//     setSentRequests(prev => Array.from(new Set([...prev,donorId])));
-//   } catch (err) {
-//     console.error("Request error:", err.response?.data || err.message);
-//     alert("Failed to send request. Please try again.");
-//     setMessage("Failed to send request. Please try again.");
-//   }
-// };
 
 const sendRequest = async (donorId, alreadyRequested) => {
   if (alreadyRequested) {

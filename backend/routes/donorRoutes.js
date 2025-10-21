@@ -244,17 +244,7 @@ router.get("/all-recipients", authMiddleware, async (req, res) => {
 
 
 
-const fetchRecipientRequests = async () => {
-  try {
-    const res = await axios.get("http://localhost:5000/api/donor/requests", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setRequests(res.data);
-  } catch (err) {
-    console.error("Error fetching requests:", err);
-  }
-};
-module.exports = router;
+
 
 
 module.exports = router;
