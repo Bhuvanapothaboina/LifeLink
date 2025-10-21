@@ -10,7 +10,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({origin:"https://life-link-oqw1lb5eo-bhuvanas-projects-c0b9f6e1.vercel.app/",
+app.use(cors({origin:CORS_ORIGIN,
   credentials:true,
 }));
 
