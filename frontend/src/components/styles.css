@@ -1,0 +1,487 @@
+/* --- Global Resets and Variables --- */
+:root {
+    --primary-color: #ffffff; /* White for hero text */
+    --secondary-color: #c9302c; /* Red for emphasis/underline */
+    --dark-bg: #22252a; /* Dark background for header/footer */
+    --light-bg: #f8f8f8; /* Light background for service section */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Reusable Underline Style */
+.underline {
+    width: 80px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+.red-line.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Header & Navigation Styling (Fixed/Float) --- */
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 0;
+    background-color: var(--dark-bg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+    /* border: 2px solid var(--primary-color); */
+    padding: 2px 8px;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--primary-color);
+    padding: 5px 0;
+}
+
+.main-nav a:hover,
+.main-nav a[href="#about"] {
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+/* --- Hero Section Styling (CSS Parallax) --- */
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px; 
+    
+    background-image: url('landing.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* CSS PARALLAX */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    color: var(--primary-color);
+}
+
+.headline {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content .underline {
+    margin: 0 auto 30px auto;
+}
+
+.subheadline {
+    font-size: 1.3rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+.hero-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 12px 30px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #a8221f;
+}
+
+.btn-secondary {
+  /* border: 2px solid var(--secondary-color);
+  /* color: var(--secondary-color); */
+   /* color: #fff; */
+
+   background-color: var(--secondary-color);
+  color: #fff;
+
+}
+
+.btn-secondary:hover {
+  /* background-color: var(--secondary-color);
+  color: #fff; */
+  background-color: #a8221f;
+
+}
+
+@media (max-width: 600px) {
+  .btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* --- About Section Styling --- */
+
+.about-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+}
+
+.about-section .container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-image-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+    flex: 1;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.about-content .red-line {
+    margin-left: 0;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+
+/* --- Call to Action (CTA) Section Styling --- */
+
+.call-to-action-section {
+    width: 100%;
+}
+
+.call-to-action-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch; 
+    min-height: 600px; 
+}
+
+.cta-content {
+    flex: 1; 
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--light-bg); 
+}
+
+.cta-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.cta-content .red-line {
+    margin: 0 0 25px 0; 
+}
+
+.cta-subtext {
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* CRITICAL CHANGE FOR JARALLAX: We need to set the image wrapper's position to relative 
+   so Jarallax can absolutely position the moving image inside it. */
+.cta-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cta-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* --- Services Section Styling --- */
+.services-section {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.services-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #222;
+    letter-spacing: 2px;
+}
+
+.services-grid {
+    display: flex;
+    gap: 40px;
+    margin-top: 50px;
+    justify-content: center;
+}
+
+.service-item {
+    flex-basis: 30%;
+    max-width: 300px;
+}
+
+.service-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid var(--light-bg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.service-item p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* --- Footer Styling --- */
+.main-footer {
+    background-color: var(--dark-bg);
+    color: var(--primary-color);
+    padding: 25px 0;
+}
+
+.main-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.copyright {
+    line-height: 1.5;
+}
+
+.footer-nav a {
+    margin-left: 20px;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.footer-nav a:hover {
+    opacity: 1;
+    color: var(--secondary-color);
+}
+
+/* --- Mobile Responsiveness --- */
+
+@media (max-width: 992px) {
+    
+    .main-header {
+        padding: 15px 0;
+    }
+    
+    /* About Section */
+    .about-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image-wrapper {
+        margin-bottom: 30px;
+        min-width: unset;
+        max-width: 500px;
+    }
+    
+    .about-content .red-line {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* CTA Section */
+    .call-to-action-section .container {
+        flex-direction: column;
+        min-height: unset;
+    }
+    
+    .cta-content {
+        order: 2;
+        padding: 50px 20px;
+        text-align: center;
+    }
+    
+    .cta-image-wrapper {
+        order: 1;
+        height: 350px;
+    }
+
+    .cta-content .red-line {
+        margin: 0 auto 20px auto;
+    }
+    
+    .cta-title {
+        font-size: 2.5rem;
+    }
+    
+    /* Services Section */
+    .services-grid {
+        flex-direction: column;
+        gap: 50px;
+    }
+    
+    .service-item {
+        max-width: 100%;
+    }
+    
+    /* Footer */
+    .main-footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .copyright {
+        margin-bottom: 15px;
+    }
+    
+    .footer-nav a {
+        margin: 0 10px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .headline {
+        font-size: 2rem;
+    }
+    .hero-buttons{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+footer, .footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Make sure last section above footer leaves space */
+section:last-of-type {
+  margin-bottom: 80px;
+}
+
+/* Optional: ensure it's visible above background images */
+.footer {
+  background-color: #b71c1c;
+  box-shadow: 0 -3px 20px rgba(0, 0, 0, 0.1);
+}
