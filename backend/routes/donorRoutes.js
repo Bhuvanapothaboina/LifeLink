@@ -1,79 +1,3 @@
-// const express = require("express");
-// const router = express.Router();
-// const Donor = require("../models/Donor");
-// const Recipient = require("../models/Recipient");
-// const protect = require("../middleware/authMiddleware");
-
-// // Add or update donor profile
-// router.post("/add", protect, async (req, res) => {
-//   try {
-//     const existing = await Donor.findOne({ userId: req.user._id });
-//     if (existing)
-//       return res.status(400).json({ message: "Profile already exists" });
-
-//     const donor = new Donor({
-//       userId: req.user._id,
-//       ...req.body,
-//     });
-
-//     await donor.save();
-//     res.status(201).json({ message: "Donor profile created", donor });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// });
-
-// // Get donor profile
-// router.get("/me", protect, async (req, res) => {
-//   try {
-//     const donor = await Donor.findOne({ userId: req.user._id });
-//     if (!donor) return res.status(404).json({ message: "No profile found" });
-//     res.json(donor);
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// });
-
-// // Update availability
-// router.put("/availability", protect, async (req, res) => {
-//   try {
-//     const donor = await Donor.findOneAndUpdate(
-//       { userId: req.user._id },
-//       { availability: req.body.availability },
-//       { new: true }
-//     );
-//     res.json({ message: "Availability updated", donor });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating availability" });
-//   }
-// });
-
-// // View all recipient requests (for donors)
-// router.get("/requests", protect, async (req, res) => {
-//   try {
-//     const requests = await Recipient.find({
-//       bloodGroup: req.user.bloodGroup,
-//     });
-//     res.json(requests);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching requests" });
-//   }
-// });
-
-// // Delete donor profile
-// router.delete("/delete", protect, async (req, res) => {
-//   try {
-//     await Donor.findOneAndDelete({ userId: req.user._id });
-//     res.json({ message: "Donor profile deleted" });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error deleting profile" });
-//   }
-// });
-
-// module.exports = router;
-
-
-
 const express = require("express");
 const router = express.Router();
 const Donor = require("../models/Donor");
@@ -229,22 +153,6 @@ router.get("/all-recipients", authMiddleware, async (req, res) => {
     res.status(500).json({ message: "Error fetching recipients" });
   }
 });
-
-// router.get("/all", authMiddleware, async (req, res) => {
-//   try {
-//     const requests = await Recipient.find({ status: "pending" }).sort({ createdAt: -1 });
-//     return res.json(requests);
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({ message: "Error fetching requests" });
-//   }
-// });
-
-
-
-
-
-
 
 
 module.exports = router;
