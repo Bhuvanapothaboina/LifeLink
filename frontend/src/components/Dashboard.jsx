@@ -23,14 +23,24 @@ const Dashboard = () => {
   useEffect(() => {
     if (!user || !token) navigate("/login");
 
-    if (user.role === "donor") fetchAllRecipients();
-    else {
+    if (user.role === "donor"){ fetchAllRecipients();
+    fetchDonorData();}
+    else if (user.role=="recipient"){
       fetchAvailableDonors();
       fetchSentRequests();
     }
-  }, [user, token]);
+  }, []);
 
-
+const fetchDonorData = async () => {
+  try {
+    const res = await axios.get(`${API}/api/donor/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setAvailability(res.data.availability || "yes");
+  } catch (err) {
+    console.error("Error fetching donor data:", err);
+  }
+};
   
   // Donor: fetch all registered recipients
 const fetchAllRecipients = async () => {
